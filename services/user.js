@@ -4,7 +4,8 @@ const User = require('../modews/User');
 async function createUser(username, hashedPassword) {
     const user = new User({
         username,
-        hashedPassword
+        hashedPassword,
+        likedPlays: []
     });
 
     user.save();

@@ -12,17 +12,22 @@
         <nav>
             <a>Theater</a>
             <ul>
-                <li><a href="#">Home </a></li>
-                <li><a href="#">Logout</a></li>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Register</a></li>
+                <li><a href="/">Home </a></li>
+                {{#if user}}
+                <li><a href="/auth/logout">Logout</a></li>
+                {{else}}
+                <li><a href="/auth/login">Login</a></li>
+                <li><a href="/auth/register">Register</a></li>
+                {{/if}}
             </ul>
         </nav>
-
+        {{#if errors}}
         <section class="notifications error">
-            <p>Message...</p>
+            {{#each errors}}
+            <p>{{this}}</p>
+            {{/each}}
         </section>
-
+        {{/if}}
 
         {{{body}}}
 

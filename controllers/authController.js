@@ -9,7 +9,10 @@ router.get('/register', isGuest(), (req, res) => {
 
 router.post('/register',
     isGuest(),
-    body('username').isLength({ min: 3 }).withMessage('ussername must be at least 3 ch long').bail(),
+    body('username').isLength({ min: 3 }).withMessage('Ussername must be at least 3 ch long').bail()
+        .isAlphanumeric().withMessage('Username must be only English leters nad digits!'),
+    body('password').isLength({ min: 3 }).withMessage('Password must be at least 3 ch long!').bail()
+        .isAlphanumeric().withMessage('Password must be only English leters and digits!'),    
     body('rePass').custom((value, { req }) => {
         if (value != req.body.password) {
             throw new Error('password don\'t match!')
@@ -21,7 +24,8 @@ router.post('/register',
         try {
             if (errors.length > 0) {
                 // TODO impruve err message
-                throw new Error(Object.values(errors).map(e => e.msg)).join('\n');
+                throw new Error(errors.map(er => er.msg).join('\n'));
+                // throw new Error(Object.values(errors).map(e => e.msg).join('\n'));
 
             }
 
@@ -47,7 +51,7 @@ router.post('/login', isGuest(), async (req, res) => {
     try {
         await req.auth.login(req.body.username, req.body.password);
         res.redirect('/'); //TODO change redirect location 
-        ``
+        
     } catch (err) {
         console.log(err);
         if (err.type == 'credential') {
@@ -59,7 +63,7 @@ router.post('/login', isGuest(), async (req, res) => {
                 username: req.body.username
             }
         };
-        res.render('/login', ctx);
+        res.render('login', ctx);
     }
 });
 

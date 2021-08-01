@@ -43,7 +43,7 @@ async function login(username, password) {
     const user = await userService.getUserByUsername(username);
 
     if (!user) {
-        const err = new Error('no such user');
+        const err = new Error('No such user');
         err.type = 'credential';
         throw err;
     }
