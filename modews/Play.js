@@ -11,5 +11,6 @@ const schema = new Schema({
     likes: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
     author: { type: Schema.Types.ObjectId, ref: 'User' }
 });
+   
 
 module.exports = model('Play', schema)

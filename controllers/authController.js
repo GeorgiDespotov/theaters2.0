@@ -32,9 +32,9 @@ router.post('/register',
             await req.auth.register(req.body.username, req.body.password);
             res.redirect('/'); //TODO change redirect location 
         } catch (err) {
-            console.log(err);
+            console.log(typeof err.message);
             const ctx = {
-                errors: err.message.split('\n'),
+                errors: err.message.split('/n'),
                 userData: {
                     username: req.body.username
                 }
