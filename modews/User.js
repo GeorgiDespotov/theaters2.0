@@ -6,4 +6,4 @@ const schema = new Schema({
     likedPlays: [{ type: Schema.Types.ObjectId, ref: 'Play' }]
 });
 
-module.exports = model('User', schema);
+module.exports = model('User', schema); 

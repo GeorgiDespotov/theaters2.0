@@ -13,4 +13,4 @@ const schema = new Schema({
 });
    
 
-module.exports = model('Play', schema)
+module.exports = model('Play', schema);
