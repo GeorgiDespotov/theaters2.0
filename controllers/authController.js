@@ -9,9 +9,9 @@ router.get('/register', isGuest(), (req, res) => {
 
 router.post('/register',
     isGuest(),
-    body('username').isLength({ min: 3 }).withMessage('Ussername must be at least 3 ch long').bail()
+    body('username').notEmpty().withMessage('Username is required!').bail().isLength({ min: 3 }).withMessage('Ussername must be at least 3 ch long').bail()
         .isAlphanumeric().withMessage('Username must be only English leters nad digits!'),
-    body('password').isLength({ min: 3 }).withMessage('Password must be at least 3 ch long!').bail()
+    body('password').notEmpty().withMessage('Password is required!').bail().isLength({ min: 3 }).withMessage('Password must be at least 3 ch long!').bail()
         .isAlphanumeric().withMessage('Password must be only English leters and digits!'),    
     body('rePass').custom((value, { req }) => {
         if (value != req.body.password) {
@@ -34,7 +34,7 @@ router.post('/register',
         } catch (err) {
             console.log(typeof err.message);
             const ctx = {
-                errors: err.message.split('/n'),
+                errors: err.message.split('\n'),
                 userData: {
                     username: req.body.username
                 }
